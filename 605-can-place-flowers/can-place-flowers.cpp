@@ -10,7 +10,7 @@ public:
                 int right = (i == size - 1) ? 0 : flowerbed[i + 1];
 
                 if (left == 0 && right == 0) {
-                    flowerbed[i] = 1;
+                    flowerbed[i] = 2;
                     count++;
                     if (count >= n) return true;
                 }
