@@ -3,7 +3,7 @@ public:
     string shortestPalindrome(string s) {
         string rev = s;
         reverse(rev.begin(), rev.end());
-        string t = s + "#" + rev;
+        string t = s + "5" + rev;
 
         vector<int> lps(t.size(), 0);
         for (int i = 1; i < t.size(); i++) {
