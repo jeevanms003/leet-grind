@@ -4,33 +4,35 @@
  *     int val;
  *     TreeNode *left;
  *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 
 class Solution {
 public:
 
-    TreeNode* dfs(vector<int>& nums, int l, int r){
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
 
-        if(l > r)
-            return NULL;
+        vector<TreeNode*> st;
 
-        // Find max element index
-        int maxIndex = l;
-        for(int i=l;i<=r;i++){
-            if(nums[i] > nums[maxIndex])
-                maxIndex = i;
+        for(int i = 0; i < nums.size(); i++) {
+
+            TreeNode* cur = new TreeNode(nums[i]);
+
+            while(!st.empty() && st.back()->val < nums[i]) {
+                cur->left = st.back();
+                st.pop_back();
+            }
+
+            if(!st.empty()) {
+                st.back()->right = cur;
+            }
+
+            st.push_back(cur);
         }
 
-        TreeNode* root = new TreeNode(nums[maxIndex]);
-
-        root->left = dfs(nums, l, maxIndex-1);
-        root->right = dfs(nums, maxIndex+1, r);
-
-        return root;
-    }
-
-    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
-        return dfs(nums,0,nums.size()-1);
+        return st.front();
     }
 };
