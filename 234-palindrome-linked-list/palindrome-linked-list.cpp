@@ -1,29 +1,28 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        if (!head || !head->next) return true;
+        
+        vector<int> arr;
+        ListNode* temp = head;
 
-        ListNode *slow = head, *fast = head;
-        while (fast && fast->next) {
-            slow = slow->next;
-            fast = fast->next->next;
+        // store values in array
+        while(temp != NULL) {
+            arr.push_back(temp->val);
+            temp = temp->next;
         }
 
-        ListNode* prev = nullptr;
-        while (slow) {
-            ListNode* nxt = slow->next;
-            slow->next = prev;
-            prev = slow;
-            slow = nxt;
+        int i = 0;
+        int j = arr.size() - 1;
+
+        // check palindrome
+        while(i < j) {
+            if(arr[i] != arr[j]) {
+                return false;
+            }
+            i++;
+            j--;
         }
 
-        ListNode* left = head;
-        ListNode* right = prev;
-        while (right) {
-            if (left->val != right->val) return false;
-            left = left->next;
-            right = right->next;
-        }
         return true;
     }
 };
