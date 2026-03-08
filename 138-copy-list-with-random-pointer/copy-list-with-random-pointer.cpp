@@ -18,7 +18,7 @@ public:
         curr = head;
 
         // 2. Assign next and random
-        while(curr != NULL) {
+        while(curr) {
             mp[curr]->next = mp[curr->next];
             mp[curr]->random = mp[curr->random];
             curr = curr->next;
