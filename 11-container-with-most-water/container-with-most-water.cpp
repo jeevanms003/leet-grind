@@ -5,17 +5,20 @@ public:
         int right = height.size() - 1;
         int maxWater = 0;
 
-        while (left < right) {
-            int width = right - left;
+        while(left < right) {
             int h = min(height[left], height[right]);
-            maxWater = max(maxWater, h * width);
+            int width = right - left;
+            int area = h * width;
 
-            if (height[left] < height[right]) {
+            maxWater = max(maxWater, area);
+
+            // Move smaller height
+            if(height[left] < height[right])
                 left++;
-            } else {
+            else
                 right--;
-            }
         }
+
         return maxWater;
     }
 };
