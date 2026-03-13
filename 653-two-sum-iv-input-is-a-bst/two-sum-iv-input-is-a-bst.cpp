@@ -1,25 +1,23 @@
 class Solution {
 public:
 
-    bool dfs(TreeNode* root, int k, unordered_map<int,int>& mp)
+    bool dfs(TreeNode* root, int k, unordered_set<int>& s)
     {
         if(root == NULL)
             return false;
 
-        int complement = k - root->val;
-
-        if(mp.count(complement))
+        if(s.count(k - root->val))
             return true;
 
-        mp[root->val]++;
+        s.insert(root->val);
 
-        return dfs(root->left, k, mp) || dfs(root->right, k, mp);
+        return dfs(root->left, k, s) || dfs(root->right, k, s);
     }
 
     bool findTarget(TreeNode* root, int k) {
 
-        unordered_map<int,int> mp;
+        unordered_set<int> s;
 
-        return dfs(root, k, mp);
+        return dfs(root, k, s);
     }
 };
