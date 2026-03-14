@@ -1,29 +1,40 @@
 class Solution {
 public:
-    vector<string> letterCombinations(string digits) {
-        if (digits.empty()) return {};
-        
-        vector<string> mp = {
-            "", "", "abc", "def", "ghi", "jkl",
-            "mno", "pqrs", "tuv", "wxyz"
-        };
-        
-        vector<string> res;
-        string cur;
-        dfs(digits, 0, mp, cur, res);
-        return res;
-    }
-    
-    void dfs(string &digits, int idx, vector<string> &mp,
-             string &cur, vector<string> &res) {
-        if (idx == digits.size()) {
-            res.push_back(cur);
+
+    void solve(int index, string digits, string temp, 
+               vector<string>& ans, vector<string>& mp)
+    {
+        if(index == digits.size())
+        {
+            ans.push_back(temp);
             return;
         }
-        for (char c : mp[digits[idx] - '0']) {
-            cur.push_back(c);
-            dfs(digits, idx + 1, mp, cur, res);
-            cur.pop_back();
+
+        string letters = mp[digits[index] - '0'];
+
+        for(char ch : letters)
+        {
+            temp.push_back(ch);
+            solve(index + 1, digits, temp, ans, mp);
+            temp.pop_back(); // backtrack
         }
+    }
+
+    vector<string> letterCombinations(string digits) {
+        
+        if(digits.empty())
+            return {};
+
+        vector<string> mp = {
+            "", "", "abc", "def", "ghi", 
+            "jkl", "mno", "pqrs", "tuv", "wxyz"
+        };
+
+        vector<string> ans;
+        string temp = "";
+
+        solve(0, digits, temp, ans, mp);
+
+        return ans;
     }
 };
