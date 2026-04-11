@@ -4,19 +4,14 @@ public:
         int n = haystack.size();
         int m = needle.size();
 
-        if(m == 0) return 0;
-
         for(int i = 0; i <= n - m; i++) {
-            int j = 0;
-
-            // match substring
-            while(j < m && haystack[i + j] == needle[j]) {
-                j++;
+            if(haystack[i] == needle[0]) {
+                if(haystack.substr(i, m) == needle) {
+                    return i;
+                }
             }
-
-            if(j == m) return i; // full match found
         }
 
-        return -1; // not found
+        return -1;
     }
 };
